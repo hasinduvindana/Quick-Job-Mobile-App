@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PublisherRegisterPage extends StatefulWidget {
+  const PublisherRegisterPage({super.key});
+
   @override
   _PublisherRegisterPageState createState() => _PublisherRegisterPageState();
 }
@@ -13,62 +15,62 @@ class _PublisherRegisterPageState extends State<PublisherRegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Publisher Register")),
+      appBar: AppBar(title: const Text("Publisher Register")),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               TextFormField(
-                decoration: InputDecoration(labelText: "Name"),
+                decoration: const InputDecoration(labelText: "Name"),
                 validator: (value) => value!.isEmpty ? "Enter your name" : null,
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: "Phone Number"),
+                decoration: const InputDecoration(labelText: "Phone Number"),
                 keyboardType: TextInputType.phone,
                 validator: (value) => value!.isEmpty ? "Enter your phone number" : null,
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: "Email"),
+                decoration: const InputDecoration(labelText: "Email"),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) => !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value!)
                     ? "Enter a valid email"
                     : null,
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: "Username"),
+                decoration: const InputDecoration(labelText: "Username"),
                 validator: (value) =>
                     !value!.startsWith("pub") ? "Username must start with 'pub'" : null,
               ),
               TextFormField(
                 controller: _passwordController,
-                decoration: InputDecoration(labelText: "Password"),
+                decoration: const InputDecoration(labelText: "Password"),
                 obscureText: true,
                 validator: (value) =>
                     value!.length < 8 ? "Password must be at least 8 characters" : null,
               ),
               TextFormField(
                 controller: _confirmPasswordController,
-                decoration: InputDecoration(labelText: "Re-enter Password"),
+                decoration: const InputDecoration(labelText: "Re-enter Password"),
                 obscureText: true,
                 validator: (value) =>
                     value != _passwordController.text ? "Passwords do not match" : null,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     // Save to Firebase
                   }
                 },
-                child: Text("Register"),
+                child: const Text("Register"),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/login');
                 },
-                child: Text("Already a user? Login"),
+                child: const Text("Already a user? Login"),
               ),
             ],
           ),
