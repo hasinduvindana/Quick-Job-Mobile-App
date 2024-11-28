@@ -94,8 +94,11 @@ Logging: Replaced print statements in auth_service.dart and database_service.dar
 flutter_lints: ^4.0.0 (for linting)
 
 provider: ^5.0.0 (for state management)
-7. Testing & Debugging
+
+5. Testing & Debugging
+   
 Verified image loading and resolved assets/logo.png not found issue.
+
 Checked functionality of Firebase authentication and Firestore database connections.
 
 
