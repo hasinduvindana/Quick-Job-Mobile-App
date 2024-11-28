@@ -64,22 +64,37 @@ quickjob/
 
 Tasks Completed - [28/11/2024]
 1. Firebase Integration
+   
 Configured Firebase with google-services.json and GoogleService-Info.plist.
+
 Integrated Firebase packages:
+
 firebase_core: ^2.16.0
+
 firebase_auth: ^4.6.0
+
 cloud_firestore: ^4.6.0
+
 2. Assets Management
+   
 Added assets/logo.png to the project.
+
 Updated pubspec.yaml to include the asset under the flutter section.
+
 3. Code Fixes
+   
 Undefined Method: Fixed the LandingPage error in main.dart.
+
 Private Types: Resolved library_private_types_in_public_api warnings in employee_register.dart, login_page.dart, and other files.
+
 Logging: Replaced print statements in auth_service.dart and database_service.dart with a proper logging framework.
+
 4. Dependencies Used
+   
 flutter_lints: ^4.0.0 (for linting)
+
 provider: ^5.0.0 (for state management)
-5. Testing & Debugging
+7. Testing & Debugging
 Verified image loading and resolved assets/logo.png not found issue.
 Checked functionality of Firebase authentication and Firestore database connections.
 
