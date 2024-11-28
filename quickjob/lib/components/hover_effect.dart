@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class HoverEffect extends StatelessWidget {
   final Widget child;
 
-  const HoverEffect({required this.child, Key? key}) : super(key: key);
+  const HoverEffect({required this.child, super.key});
 
   @override
   Widget build(BuildContext context) {

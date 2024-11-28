@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -12,18 +14,18 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Login")),
+      appBar: AppBar(title: const Text("Login")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset('assets/logo.png', height: 100),
-            SizedBox(height: 20),
-            Text("Login", style: TextStyle(fontSize: 24)),
+            const SizedBox(height: 20),
+            const Text("Login", style: TextStyle(fontSize: 24)),
             TextFormField(
               controller: _emailController,
-              decoration: InputDecoration(labelText: "Email"),
+              decoration: const InputDecoration(labelText: "Email"),
               validator: (value) =>
                   !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value!)
                       ? "Enter a valid email"
@@ -31,17 +33,17 @@ class _LoginPageState extends State<LoginPage> {
             ),
             TextFormField(
               controller: _passwordController,
-              decoration: InputDecoration(labelText: "Password"),
+              decoration: const InputDecoration(labelText: "Password"),
               obscureText: true,
               validator: (value) =>
                   value!.isEmpty ? "Enter your password" : null,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 // Perform login and OTP verification
               },
-              child: Text("Login"),
+              child: const Text("Login"),
             ),
           ],
         ),

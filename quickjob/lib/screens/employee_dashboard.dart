@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class EmployeeDashboard extends StatelessWidget {
   final String username;
 
-  EmployeeDashboard({required this.username});
+  const EmployeeDashboard({super.key, required this.username});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class EmployeeDashboard extends StatelessWidget {
         title: Text("Welcome, $username"),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
             onPressed: () {
               // Logout
             },
@@ -27,22 +27,22 @@ class EmployeeDashboard extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Search for jobs...",
                       border: OutlineInputBorder(),
                     ),
                   ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 DropdownButton<String>(
-                  items: [
-                    DropdownMenuItem(child: Text("Colombo"), value: "Colombo"),
-                    DropdownMenuItem(child: Text("Galle"), value: "Galle"),
+                  items: const [
+                    DropdownMenuItem(value: "Colombo", child: Text("Colombo")),
+                    DropdownMenuItem(value: "Galle", child: Text("Galle")),
                   ],
                   onChanged: (value) {},
                 ),
                 IconButton(
-                  icon: Icon(Icons.search),
+                  icon: const Icon(Icons.search),
                   onPressed: () {
                     // Perform search
                   },
@@ -55,7 +55,7 @@ class EmployeeDashboard extends StatelessWidget {
               itemCount: 10, // Replace with dynamic job list count
               itemBuilder: (context, index) {
                 return ListTile(
-                  leading: Icon(Icons.work),
+                  leading: const Icon(Icons.work),
                   title: Text("Job Title $index"),
                   subtitle: Text("Location $index"),
                   trailing: Text("Date $index"),

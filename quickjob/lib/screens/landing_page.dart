@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatelessWidget {
+  const LandingPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -8,14 +10,14 @@ class LandingPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset('assets/logo.png', height: 100),
-          Text("Welcome to Quickjob", style: TextStyle(fontSize: 24)),
-          Text("Sri Lanka's NO:01 Microjob Finding Platform"),
-          SizedBox(height: 20),
+          const Text("Welcome to Quickjob", style: TextStyle(fontSize: 24)),
+          const Text("Sri Lanka's NO:01 Microjob Finding Platform"),
+          const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
               _showRoleSelection(context);
             },
-            child: Text("Get Started"),
+            child: const Text("Get Started"),
           ),
         ],
       ),
@@ -26,12 +28,12 @@ class LandingPage extends StatelessWidget {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text("What is your Role?"),
+        title: const Text("What is your Role?"),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: Text("Employee"),
+              title: const Text("Employee"),
               leading: Radio(
                 value: "Employee",
                 groupValue: null,
@@ -41,7 +43,7 @@ class LandingPage extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text("Job Publisher"),
+              title: const Text("Job Publisher"),
               leading: Radio(
                 value: "Job Publisher",
                 groupValue: null,
