@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quickjob/screens/employee_register.dart';
+import 'package:quickjob/screens/publisher_register.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
@@ -9,8 +11,8 @@ class LandingPage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/logo.png', height: 100),
-          const Text("Welcome to Quickjob", style: TextStyle(fontSize: 24)),
+          const Image(image: AssetImage('images/logo.png'), width: 300),
+          const Text("Welcome to Quickjob", style: TextStyle(fontSize: 38)),
           const Text("Sri Lanka's NO:01 Microjob Finding Platform"),
           const SizedBox(height: 20),
           ElevatedButton(
@@ -38,7 +40,7 @@ class LandingPage extends StatelessWidget {
                 value: "Employee",
                 groupValue: null,
                 onChanged: (value) {
-                  Navigator.pushNamed(context, '/employee_register');
+                  Navigator.of(context).pushNamed('/employee_register');
                 },
               ),
             ),
@@ -48,7 +50,7 @@ class LandingPage extends StatelessWidget {
                 value: "Job Publisher",
                 groupValue: null,
                 onChanged: (value) {
-                  Navigator.pushNamed(context, '/publisher_register');
+                  Navigator.of(context).pushNamed('/publisher_register');
                 },
               ),
             ),
