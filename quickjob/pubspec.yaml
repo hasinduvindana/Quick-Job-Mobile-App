@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_core: ^2.16.0
+  firebase_core: ^2.32.0
   firebase_auth: ^4.6.0
   cloud_firestore: ^4.6.0
   provider: ^5.0.0
@@ -64,7 +64,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/logo.png
+  - images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
