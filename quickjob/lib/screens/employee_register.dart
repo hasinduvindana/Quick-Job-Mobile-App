@@ -77,14 +77,14 @@ class _EmployeeRegisterPageState extends State<EmployeeRegisterPage> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     try {
-                      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                        email: _emailController.text,
-                        password: _passwordController.text,
-                      );
-                      await FirebaseFirestore.instance.collection('employees').doc(userCredential.user!.uid).set({
+                      CollectionReference collReff = FirebaseFirestore.instance.collection('employee');
+                      collReff.add({
+                     
                         'name': _nameController.text,
                         'phone': _phoneController.text,
                         'email': _emailController.text,
+                        'password': _passwordController.text,
+                        'con_password': _confirmPasswordController.text,
                       });
                       _showSuccessMessage();
                       // Navigate to another page or show success message
