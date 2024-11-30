@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:quickjob/screens/employee_login_page.dart'; // Add this import
+import 'package:cloud_firestore/cloud_firestore.dart'; // Add this import
+import 'package:firebase_auth/firebase_auth.dart'; // Add this import
 
 class EmployeeRegisterPage extends StatefulWidget {
   const EmployeeRegisterPage({super.key});
@@ -11,6 +14,21 @@ class _EmployeeRegisterPageState extends State<EmployeeRegisterPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+
+  void _showSuccessMessage() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Registration successfully!")),
+    );
+  }
+
+  void _showErrorMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +41,24 @@ class _EmployeeRegisterPageState extends State<EmployeeRegisterPage> {
           child: Column(
             children: [
               TextFormField(
+                controller: _nameController,
                 decoration: const InputDecoration(labelText: "Name"),
                 validator: (value) => value!.isEmpty ? "Enter your name" : null,
               ),
               TextFormField(
+                controller: _phoneController,
                 decoration: const InputDecoration(labelText: "Phone Number"),
                 keyboardType: TextInputType.phone,
                 validator: (value) => value!.isEmpty ? "Enter your phone number" : null,
               ),
-              // Add other input fields here...
+              TextFormField(
+                controller: _emailController,
+                decoration: const InputDecoration(labelText: "Email"),
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) => !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value!)
+                    ? "Enter a valid email"
+                    : null,
+              ),
               TextFormField(
                 controller: _passwordController,
                 decoration: const InputDecoration(labelText: "Password"),
@@ -47,12 +74,46 @@ class _EmployeeRegisterPageState extends State<EmployeeRegisterPage> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    // Save to Firebase
+                    try {
+                      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                        email: _emailController.text,
+                        password: _passwordController.text,
+                      );
+                      await FirebaseFirestore.instance.collection('employees').doc(userCredential.user!.uid).set({
+                        'name': _nameController.text,
+                        'phone': _phoneController.text,
+                        'email': _emailController.text,
+                      });
+                      _showSuccessMessage();
+                      // Navigate to another page or show success message
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'email-already-in-use') {
+                        _showErrorMessage('The email address is already in use.');
+                      } else if (e.code == 'invalid-email') {
+                        _showErrorMessage('The email address is not valid.');
+                      } else if (e.code == 'operation-not-allowed') {
+                        _showErrorMessage('Email/password accounts are not enabled.');
+                      } else if (e.code == 'weak-password') {
+                        _showErrorMessage('The password is too weak.');
+                      } else {
+                        _showErrorMessage('An unknown error occurred.');
+                      }
+                    } catch (e) {
+                      _showErrorMessage('An error occurred. Please try again.');
+                    }
                   }
                 },
                 child: const Text("Register"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                },
+                child: const Text("Already a user? Login"),
               ),
             ],
           ),

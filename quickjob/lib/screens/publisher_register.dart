@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickjob/screens/publisher_login_page.dart'; // Add this import
 
 class PublisherRegisterPage extends StatefulWidget {
   const PublisherRegisterPage({super.key});
@@ -68,7 +69,9 @@ class _PublisherRegisterPageState extends State<PublisherRegisterPage> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/login');
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const PublisherLoginPage()),
+                  );
                 },
                 child: const Text("Already a user? Login"),
               ),
