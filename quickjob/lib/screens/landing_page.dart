@@ -10,21 +10,46 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center( // Wrap Column with Center
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Image(image: AssetImage('images/logo.png'), width: 300),
-            const Text("Welcome to Quickjob", style: TextStyle(fontSize: 38)),
-            const Text("Sri Lanka's NO:01 Microjob Finding Platform"),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                _showRoleSelection(context);
-              },
-              child: const Text("Get Started"),
-            ),
-          ],
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/background.jpg'),
+            fit: BoxFit.cover, // Ensures the image covers the entire screen
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Image(
+                image: AssetImage('images/logo.png'),
+                width: 300,
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                "Welcome to Quickjob",
+                style: TextStyle(
+                  fontSize: 38,
+                  color: Colors.white, // Adjust color to contrast with the background
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Text(
+                "Sri Lanka's NO:01 Microjob Finding Platform",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white, // Adjust color for better visibility
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  _showRoleSelection(context);
+                },
+                child: const Text("Get Started"),
+              ),
+            ],
+          ),
         ),
       ),
     );

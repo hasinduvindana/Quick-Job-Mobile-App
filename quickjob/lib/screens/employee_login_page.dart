@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/logo.png', height: 100), // Ensure this path is correct
+              const Image(image: AssetImage('images/logo.png'),height: 100), // Ensure this path is correct
               const SizedBox(height: 20),
               const Text("Login", style: TextStyle(fontSize: 24)),
               TextFormField(

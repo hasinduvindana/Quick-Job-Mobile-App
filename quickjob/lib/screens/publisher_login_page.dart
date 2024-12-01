@@ -22,7 +22,7 @@ class _PublisherLoginPageState extends State<PublisherLoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/logo.png', height: 100),
+            const Image(image: AssetImage('images/logo.png'),height: 100),
             const SizedBox(height: 20),
             const Text("Login", style: TextStyle(fontSize: 24)),
             TextFormField(
