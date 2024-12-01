@@ -68,57 +68,95 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Employee Login")),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Image(image: AssetImage('images/logo.png'),height: 100), // Ensure this path is correct
-              const SizedBox(height: 20),
-              const Text("Login", style: TextStyle(fontSize: 24)),
-              TextFormField(
-                controller: _emailController,
-                decoration: const InputDecoration(labelText: "Email"),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Enter your email";
-                  } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                    return "Enter a valid email";
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _passwordController,
-                decoration: const InputDecoration(labelText: "Password"),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Enter your password";
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _loginUser,
-                child: const Text("Login"),
-              ),
-              const SizedBox(height: 20),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const EmployeeRegisterPage(),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/background.jpg'),
+            fit: BoxFit.cover, // Ensures the image covers the entire screen
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Center(
+                  child: Image(
+                    image: AssetImage('images/logo.png'),
+                    height: 100,
+                    width: 100,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Center(
+                  child: Text(
+                    "Employee Login",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
-                  );
-                },
-                child: const Text("Don't have an account? Sign up"),
-              ),
-            ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(
+                    labelText: "Email",
+                    filled: true,
+                    fillColor: Colors.transparent,
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Enter your email";
+                    } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                      return "Enter a valid email";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: const InputDecoration(
+                    labelText: "Password",
+                    filled: true,
+                    fillColor: Colors.transparent,
+                  ),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Enter your password";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: _loginUser,
+                  child: const Text("Login"),
+                ),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const EmployeeRegisterPage(),
+                      ),
+                    );
+                  },
+                  child: const Center(
+                    child: Text(
+                      "Don't have an account? Sign up",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
