@@ -17,6 +17,7 @@ class _EmployeeRegisterPageState extends State<EmployeeRegisterPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
   void _showSuccessMessage() {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -74,9 +75,7 @@ class _EmployeeRegisterPageState extends State<EmployeeRegisterPage> {
                         filled: true,
                         fillColor: Colors.transparent,
                       ),
-                       validator: (value) => value!.startsWith("emp")
-                          ? null
-                          : "Username must start with 'emp'",
+                        validator: (value) => value!.isEmpty ? "Enter your name" : null,
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
@@ -103,6 +102,18 @@ class _EmployeeRegisterPageState extends State<EmployeeRegisterPage> {
                               .hasMatch(value!)
                           ? "Enter a valid email"
                           : null,
+                    ),
+                     const SizedBox(height: 10),
+                    TextFormField(
+                      controller: _usernameController,
+                      decoration: const InputDecoration(
+                        labelText: "Username",
+                        filled: true,
+                        fillColor: Colors.transparent,
+                      ),
+                      validator: (value) => value!.startsWith("emp")
+                          ? null
+                          : "Username must start with 'emp'",
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
@@ -141,6 +152,7 @@ class _EmployeeRegisterPageState extends State<EmployeeRegisterPage> {
                               'name': _nameController.text,
                               'phone': _phoneController.text,
                               'email': _emailController.text,
+                              'username': _usernameController.text,
                               'password': _passwordController.text,
                             });
                             _showSuccessMessage();

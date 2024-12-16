@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:quickjob/screens/employee_register.dart';
+import 'employee_register.dart';
 import 'package:cloud_firestore/cloud_firestore.dart'; // Add this import
+import 'employee_dashboard.dart'; // Add this import
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,52 +16,43 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  void _showErrorMessage(String message) {
+  void _showMessage(String message, {bool isError = false}) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
+      SnackBar(
+        content: Text(message),
+        backgroundColor: isError ? Colors.red : Colors.green,
+      ),
     );
   }
 
-  void _loginUser() async {
+  Future<void> _loginUser() async {
     if (_formKey.currentState!.validate()) {
       try {
-        // Sign in the user with Firebase Authentication
-        UserCredential employee = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim(),
-        );
-
-        // Check if the user exists in Firestore
-        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+        // Query Firestore for user with matching email and password
+        final QuerySnapshot result = await FirebaseFirestore.instance
             .collection('employee')
-            .doc(employee.user!.uid)
+            .where('email', isEqualTo: _emailController.text)
+            .where('password', isEqualTo: _passwordController.text) // Ensure passwords are encrypted in production
             .get();
 
-        if (userDoc.exists) {
-          // Show success message and navigate to home/dashboard
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Login successful!")),
-          );
+        if (result.docs.isNotEmpty) {
+          // User authenticated successfully
+          final userData = result.docs.first.data() as Map<String, dynamic>;
+          _showMessage("Login successful!");
+
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const HomePage()), // Replace with your actual home screen
+            MaterialPageRoute(
+              builder: (context) => EmployeeDashboardPage(
+                username: userData['username'],
+              ),
+            ),
           );
         } else {
-          _showErrorMessage('No user found for that email.');
-        }
-      } on FirebaseAuthException catch (e) {
-        // Handle specific Firebase exceptions
-        if (e.code == 'user-not-found') {
-          _showErrorMessage('No user found for that email.');
-        } else if (e.code == 'wrong-password') {
-          _showErrorMessage('Incorrect password.');
-        } else if (e.code == 'invalid-email') {
-          _showErrorMessage('Invalid email address.');
-        } else {
-          _showErrorMessage('An unknown error occurred. Please try again.');
+          // No matching user found
+          _showMessage("Invalid email or password", isError: true);
         }
       } catch (e) {
-        // Handle other errors
-        _showErrorMessage('An error occurred. Please try again.');
+        _showMessage("An error occurred. Please try again.", isError: true);
       }
     }
   }
@@ -159,20 +151,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Home")),
-      body: const Center(
-        child: Text("Welcome to the Home Page!"),
       ),
     );
   }
