@@ -41,6 +41,7 @@ class _PublisherRegisterPageState extends State<PublisherRegisterPage> {
             fit: BoxFit.cover,
           ),
         ),
+          
         child: Center(
           child: SingleChildScrollView(
             child: Padding(
@@ -60,6 +61,13 @@ class _PublisherRegisterPageState extends State<PublisherRegisterPage> {
                         fontWeight: FontWeight.bold,
                         color: Colors.white, // Adjust based on your background
                       ),
+                    ),
+                    const SizedBox(height: 20),
+                  // Add the Image widget for the registration icon
+                  const Image(
+                  image: AssetImage('images/registration-icon.png'),
+                  width: 150, // Adjust the size as needed
+                  height: 150,
                     ),
                     const SizedBox(height: 30),
                     TextFormField(

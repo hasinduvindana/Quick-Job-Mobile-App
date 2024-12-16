@@ -60,6 +60,12 @@ class _EmployeeRegisterPageState extends State<EmployeeRegisterPage> {
                         color: Colors.white, // Adjust based on your background
                       ),
                     ),
+                    // Add the Image widget for the registration icon
+                  const Image(
+                  image: AssetImage('images/registration-icon.png'),
+                  width: 150, // Adjust the size as needed
+                  height: 150,
+                    ),
                     const SizedBox(height: 30),
                     TextFormField(
                       controller: _nameController,
@@ -68,8 +74,9 @@ class _EmployeeRegisterPageState extends State<EmployeeRegisterPage> {
                         filled: true,
                         fillColor: Colors.transparent,
                       ),
-                      validator: (value) =>
-                          value!.isEmpty ? "Enter your name" : null,
+                       validator: (value) => value!.startsWith("emp")
+                          ? null
+                          : "Username must start with 'emp'",
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
